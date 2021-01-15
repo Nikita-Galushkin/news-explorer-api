@@ -1,4 +1,8 @@
-# Проект Mesto фронтенд + бэкенд
+https://new.gavrik.students.nomoreparties.xyz 
+https://api.new.gavrik.students.nomoreparties.xyz 
+178.154.232.23
+
+# Проект New-express бэкенд
 
 ## Стек
 
