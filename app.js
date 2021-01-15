@@ -16,6 +16,8 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { validateUser, validateLogin } = require('./middlewares/requestValidation');
 const NotFoundError = require('./errors/NotFoundError.js');
+const { MONGO_OPTIONS } = require('./constants/config');
+const { NOT_FOUND_ERROR, CRASH_TEST_ERROR } = require('./constants/constants');
 
 const {
   PORT = 3000,
@@ -24,21 +26,16 @@ const {
 
 const hosts = [
   'http://localhost:3000',
-  'https://web.gavrik.students.nomoreparties.xyz',
-  'http://web.gavrik.students.nomoreparties.xyz',
-  'https://api.web.gavrik.students.nomoreparties.xyz',
-  'http://api.web.gavrik.students.nomoreparties.xyz',
+  'https://new.gavrik.students.nomoreparties.xyz',
+  'http://new.gavrik.students.nomoreparties.xyz',
+  'https://api.new.gavrik.students.nomoreparties.xyz',
+  'http://api.new.gavrik.students.nomoreparties.xyz',
 ];
 
 app.use(cors({ origin: hosts }));
 // app.use(cookieParser());
 
-mongoose.connect(MONGO_URL, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(MONGO_URL, MONGO_OPTIONS);
 
 app.use(requestLogger);
 app.use(limiter);
@@ -48,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/crash-test', () => {
   setTimeout(() => {
-    throw new Error({ message: 'Сервер сейчас упадёт' });
+    throw new Error(CRASH_TEST_ERROR);
   }, 0);
 });
 
@@ -58,7 +55,7 @@ app.post('/signup', validateUser, createUser);
 app.use('/', auth, usersRouter);
 app.use('/', auth, articlesRouter);
 app.use('*', auth, () => {
-  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
+  throw new NotFoundError(NOT_FOUND_ERROR);
 });
 
 app.use(errorLogger);
