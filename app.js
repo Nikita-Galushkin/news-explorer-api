@@ -18,6 +18,7 @@ const { validateUser, validateLogin } = require('./middlewares/requestValidation
 const NotFoundError = require('./errors/NotFoundError.js');
 const { MONGO_OPTIONS } = require('./constants/config');
 const { NOT_FOUND_ERROR, CRASH_TEST_ERROR } = require('./constants/constants');
+const { finalError } = require('./middlewares/finalError');
 
 const {
   PORT = 3000,
@@ -62,13 +63,6 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, next) => {
-  if (err.status) {
-    res.status(err.status).send(err.message);
-    return;
-  }
-  res.status(500).send({ message: `На сервере произошла ошибка: ${err.message}` });
-  next();
-});
+app.use(finalError);
 
 app.listen(PORT);
