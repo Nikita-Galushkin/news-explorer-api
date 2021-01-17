@@ -13,7 +13,7 @@ router.post('/signup', validateUser, createUser);
 router.use('/', auth, usersRouter);
 router.use('/', auth, articlesRouter);
 router.use('*', auth, () => {
-  throw new NotFoundError(NOT_FOUND_ERROR);
+  throw new NotFoundError({ message: NOT_FOUND_ERROR });
 });
 
 module.exports = router;
