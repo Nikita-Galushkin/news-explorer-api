@@ -14,10 +14,10 @@ const finalError = require('./middlewares/finalError');
 
 const hosts = [
   'http://localhost:3000',
-  'https://new.gavrik.students.nomoreparties.xyz',
-  'http://new.gavrik.students.nomoreparties.xyz',
-  'https://api.new.gavrik.students.nomoreparties.xyz',
-  'http://api.new.gavrik.students.nomoreparties.xyz',
+  'https://new-gavrik.students.nomoreparties.xyz',
+  'http://new-gavrik.students.nomoreparties.xyz',
+  'https://api.new-gavrik.students.nomoreparties.xyz',
+  'http://api.new-gavrik.students.nomoreparties.xyz',
 ];
 
 app.use(cors({ origin: hosts }));
